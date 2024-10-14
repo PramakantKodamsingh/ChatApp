@@ -1,0 +1,52 @@
+
+
+#cont {
+    display: flex;
+    justify-content: space-between; /* Moves ul to one side and button to the other */
+    align-items: center; /* Ensures vertical alignment */
+    background-color: rgb(147, 30, 225);
+    padding: 5px;
+    font-weight: bold;
+  }
+  h3{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family:monospace;
+    margin-left:20px;
+   
+  }
+  span{
+    font-family: cursive;
+  }
+  ul {
+    list-style-type: none; /* Removes bullets from list */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Aligns list items horizontally */
+  }
+  
+  li {
+    margin-right: 20px; /* Adds spacing between list items */
+  }
+  
+  button {
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color:white;
+    color:purple;
+    font-weight: bolder;
+  }
+  .homebutton:hover{
+    background-color: rgb(56, 234, 79);
+
+
+  }
+  button:hover{
+    background-color: #ff1414;
+    color: white;
+  
+  }
+  

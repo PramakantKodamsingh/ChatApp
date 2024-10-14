@@ -1,0 +1,1 @@
+learn abaout get vs post: get doesnot have req.body but manually we can add req.something because Using req.me allows you to pass the user information to the next middleware or route handler, as the req object is shared throughout the request-response cycle.
