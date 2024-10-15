@@ -1,75 +1,74 @@
-import React from "react";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { useContext, useRef } from "react";
 import "./login.css";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+import { AuthContext } from "../../context/AuthContext";
+import { CircularProgress } from "@mui/material";
+import { loginCall } from "../../apicalls";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const onFinishHandler = async (values) => {
-    try {
-      dispatch(showLoading());
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/users/login",
-        values
-      );
-      window.location.reload(); //used to reload the located page
-      dispatch(hideLoading());
-      if (res.data.success) {
-        localStorage.setItem("token", res.data.token); //we can store for more secure in HTTP-Only Cookies for Storing JWTs:
-        message.success("Login Successfuly");
-        navigate("/");
-      } else {
-        message.error(res.data.message);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      // console.log(error);
-      message.error("Something went wrong");
-    }
+  const email = useRef();
+  const password = useRef();
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    );
+    console.log(user);
+  };
+  const gotoregister = () => {
+    navigate("/register");
   };
 
   return (
-    <>
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
-        <h1 className="animated-text">Welcome</h1>
+    <div className="login">
+      <div className="loginWrapper">
+        <div className="loginLeft">
+          <h3 className="loginLogo">CatchUp</h3>
+          <span className="loginDesc">
+            Connect with friends and the world around you on CatchUp.
+          </span>
+        </div>
+        <div className="loginRight">
+          <form className="loginBox" onSubmit={handleClick}>
+            <input
+              placeholder="Email"
+              type="email"
+              required
+              className="loginInput"
+              autoComplete="current-user"
+              ref={email}
+            />
+            <input
+              placeholder="Password"
+              type="password"
+              required
+              minLength="4"
+              className="loginInput"
+              autoComplete="current-password"
+              ref={password}
+            />
+            <button className="loginButton" type="submit" disabled={isFetching}>
+              {isFetching ? (
+                <CircularProgress color="white" size="20px" />
+              ) : (
+                "Log In"
+              )}
+            </button>
+            <span className="loginForgot">Forgot Password?</span>
+            <button className="loginRegisterButton" onClick={gotoregister}>
+              {isFetching ? (
+                <CircularProgress color="white" size="20px" />
+              ) : (
+                "Create a New Account"
+              )}
+            </button>
+          </form>
+        </div>
       </div>
-
-      <div className="form-container">
-        <Form
-          layout="vertical"
-          onFinish={onFinishHandler}
-          className="register-form"
-        >
-          <h1>Login</h1>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input type="email" />
-          </Form.Item>
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input type="password" />
-          </Form.Item>
-          <Link to="/register" className="m-2">
-            {" "}
-            Sign in if not a member{" "}
-          </Link>
-          <button className="btn btn-primary" type="submit">
-            Login
-          </button>
-        </Form>
-      </div>
-    </>
+    </div>
   );
 }
-
-export default Login;

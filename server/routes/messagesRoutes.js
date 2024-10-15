@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Messages from "../models/Messages.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+// import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:conversationId", authMiddleware, async (req, res) => {
+router.get("/:conversationId", async (req, res) => {
   try {
     const messages = await Messages.find({
       conversationId: req.params.conversationId,

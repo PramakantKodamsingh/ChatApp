@@ -9,6 +9,12 @@ const HomePage = () => {
     localStorage.setItem("token", "");
     navigate("/login");
   };
+  const goto = () => {
+    navigate("/");
+  };
+  const gotoM = () => {
+    navigate("/messenger");
+  };
   return (
     <div id="cont">
       <div>
@@ -18,7 +24,10 @@ const HomePage = () => {
       </div>
 
       <div>
-        <button className="homebutton" onClick={navigate("/")}>
+        <button className="homebutton" onClick={gotoM}>
+          Messenger
+        </button>
+        <button className="homebutton" onClick={goto}>
           Home
         </button>
         <button className="logout" onClick={handleLogout}>

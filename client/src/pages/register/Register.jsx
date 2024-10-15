@@ -3,22 +3,22 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import "./register.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+// import { useDispatch } from "react-redux";
+// import { showLoading, hideLoading } from "../../redux/features/alertSlice";
 
 function Register() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onFinishHandler = async (values) => {
     // console.log(values);
     try {
-      dispatch(showLoading());
+      // dispatch(showLoading());
       const res = await axios.post(
         "http://localhost:8080/api/v1/users/register",
         values
       );
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       if (res.data.success) {
         message.success("Register Successfully!"); // it is well styled due to antdesign
         navigate("/login");
@@ -26,7 +26,7 @@ function Register() {
         message.error(res.data.message);
       }
     } catch (error) {
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       // console.log(error);
       message.error("Something gone Wrong");
     }

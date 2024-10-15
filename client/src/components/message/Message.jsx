@@ -4,17 +4,17 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Message = ({ own }) => {
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
 
-  const getConversations = async () => {
-    try {
-      const res = await axios.get("/conversations/" + user._id);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  getConversations();
+  // const getConversations = async () => {
+  //   try {
+  //     const res = await axios.get("/conversations/");
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // getConversations();
 
   return (
     <>

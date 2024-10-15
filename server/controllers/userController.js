@@ -31,11 +31,7 @@ const registerController = async (req, res) => {
 const loginController = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.body.email });
-    if (!user) {
-      return res
-        .status(200)
-        .send({ message: "user not found", success: false });
-    }
+    !user && res.status(404).json("user not found");
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
       return res
@@ -45,35 +41,36 @@ const loginController = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.status(200).send({ message: "Login Success", success: true, token });
+    res.status(200).json(user);
   } catch (error) {
     // console.log(error);
-    res.status(500).send({ message: `Error in Login CTRL ${error.message}` });
+    res.status(500).json(error);
   }
 };
 
 const authController = async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.name;
+
   try {
-    const user = await userModel.findById({ _id: req.body.userId }); //required ByID otherwise give something else like more than one item
-    user.password = undefined;
+    // Query the database based on userId or username
+    const user = userId
+      ? await userModel.findById(userId)
+      : await userModel.findOne({ name: username });
+
+    // Check if user exists before destructuring
     if (!user) {
-      return res.status(200).send({
-        message: "User not found",
-        success: false,
-      });
-    } else {
-      res.status(200).send({
-        success: true,
-        data: user,
-      });
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Destructure to remove sensitive fields like password
+    const { password, updatedAt, ...other } = user._doc || user;
+
+    // Return the remaining user details
+    res.status(200).json(other);
   } catch (error) {
-    // console.log(error);
-    res.status(500).send({
-      message: "auth error",
-      success: false,
-      error,
-    });
+    // Return a 500 error for any server issues
+    res.status(500).json({ error: error.message });
   }
 };
 
