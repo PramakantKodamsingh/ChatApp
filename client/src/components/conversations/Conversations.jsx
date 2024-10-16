@@ -16,7 +16,7 @@ const Conversations = ({ conversation, currentUser }) => {
           const res = await axios.get(
             "http://localhost:8080/api/v1/users/getuser?userId=" + friendId
           );
-          console.log(res.data); // Logs user data received from the API
+          setUser(res.data); // Logs user data received from the API
         } catch (error) {
           console.error("Error fetching user data: ", error);
         }
@@ -31,7 +31,7 @@ const Conversations = ({ conversation, currentUser }) => {
   return (
     <div className="conversation">
       <img className="conversationImg" src="/person/myimg.jpg" alt="" />
-      <span className="conversationName">Pramakant Kodamsingh</span>
+      <span className="conversationName">{user?.name || "Loading..."}</span>
     </div>
   );
 };

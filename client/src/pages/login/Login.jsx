@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@mui/material";
@@ -17,11 +17,16 @@ export default function Login() {
       { email: email.current.value, password: password.current.value },
       dispatch
     );
-    console.log(user);
   };
   const gotoregister = () => {
     navigate("/register");
   };
+  useEffect(() => {
+    if (user) {
+      console.log("Logged in user:", user); // Logs user after login
+      navigate("/home"); // Redirect to home after login
+    }
+  }, [user, navigate]); //
 
   return (
     <div className="login">
