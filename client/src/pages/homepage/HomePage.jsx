@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
 import "./homepage.css";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.setItem("token", "");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user"); // Removes the user from localStorage
+
+    dispatch({ type: "LOGOUT" });
     navigate("/login");
   };
   const goto = () => {

@@ -16,6 +16,7 @@ import Register from "./pages/register/Register";
 import Messenger from "./pages/messenger/Messenger";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import RoutePublic from "./components/RoutePublic";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="/login"
+          element={
+            <RoutePublic>
+              <Login />
+            </RoutePublic>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={user ? <HomePage /> : <Login />} />
         <Route path="/messenger" element={user ? <Messenger /> : <Login />} />

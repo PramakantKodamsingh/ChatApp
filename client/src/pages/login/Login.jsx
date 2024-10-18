@@ -24,7 +24,7 @@ export default function Login() {
   useEffect(() => {
     if (user) {
       console.log("Logged in user:", user); // Logs user after login
-      navigate("/home"); // Redirect to home after login
+      navigate("/"); // Redirect to home after login
     }
   }, [user, navigate]); //
 
