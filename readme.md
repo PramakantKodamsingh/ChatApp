@@ -45,11 +45,11 @@
 <ol>
   <li>Clone the repository:</li>
 
-  <pre><code>git clone https://github.com/Pramakant/chat-app.git</code></pre>
+  <pre><code>git clone [https://github.com/PramakantKodamsingh/ChatApp.git</code></pre>
 
   <li>Navigate to the project directory:</li>
 
-  <pre><code>cd chat-app</code></pre>
+  <pre><code>cd chatApp</code></pre>
 
   <li>Install dependencies for both the client and server:</li>
 
@@ -58,7 +58,7 @@
   <li>Create a <code>.env</code> file in the root directory and add your environment variables:</li>
 
   <pre><code>
-  PORT=5000
+  PORT=8080
   MONGO_URL=your_mongodb_url
   JWT_SECRET=your_secret_key
   </code></pre>
@@ -67,11 +67,19 @@
 
   <pre><code>npm start</code></pre>
 </ol>
+  <li>Navigate to socket dir.:</li>
+
+  <pre><code>cd socket</code></pre>
+</ol>
+ <li>Run socket server:</li>:</li>
+
+  <pre><code>npm start</code></pre>
+</ol>
 
 <h2 id="usage">📚 Usage</h2>
 
 <ul>
-  <li>Open the app in your browser at <code>http://localhost:5000</code></li>
+  <li>Open the app in your browser at <code>http://localhost:8080</code></li>
   <li>Create an account or log in with existing credentials</li>
   <li>Start chatting with users in real-time!</li>
 </ul>
